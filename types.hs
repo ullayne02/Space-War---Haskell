@@ -11,4 +11,4 @@ data GameAttribute = GA Int Int Bool
 data GameState = LevelStart Int | Level Int | GameOver
 
 type SpaceWarObject = GameObject ()
-type SpaceWarAction = IOGame GameAttribute () GameState () a
+type SpaceWarAction a = IOGame GameAttribute () GameState () a

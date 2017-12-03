@@ -4,8 +4,8 @@ module Screen(
 ) where
 
 import Graphics.UI.Fungen
-import Texture
-import types
+import Textures
+import Types
 
 windowResolution :: (Int, Int)
 windowResolution = (800, 800)
