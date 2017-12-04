@@ -4,6 +4,7 @@ module Textures(
     textureBackgroundSize, textureBackgroundIndex,
     textureBackground2Size, textureBackground2Index,
     textureObstacleSize, textureObstacleIndex,
+    textureBulletSize, textureBulletIndex
 ) where
 
 import Graphics.UI.Fungen
@@ -25,6 +26,9 @@ textureBackground2Index = 2
 textureObstacleIndex :: Int
 textureObstacleIndex = 3
 
+textureBulletIndex :: Int
+textureBulletIndex = 4
+
 textureBackgroundSize :: (Double, Double)
 textureBackgroundSize = (800, 800)
 
@@ -36,6 +40,9 @@ textureObstacleSize = (500, 443)
 
 texturePlayerSize :: (Double, Double)
 texturePlayerSize = (430, 486)
+
+textureBulletSize :: (Double, Double)
+textureBulletSize = (3, 3)
 
 magenta :: InvList
 magenta = Just [(255, 0, 255)]
