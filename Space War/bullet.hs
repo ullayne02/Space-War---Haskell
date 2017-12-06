@@ -4,11 +4,14 @@ import Graphics.UI.Fungen
 import Screen
 import Textures
 import Types
---import Enemy
+import Enemy
 
-creatBullet :: SpaceWarObject
-creatBullet enemyPosicion = let sprite = Tex textureBulletSize textureBulletIndex
-				in object "bullet" sprite False startPosicion (enemyPosicion)
+startPosition = (800, 20)
+
+--creatBullet :: Position -> SpaceWarObject
+creatBullet enemyPosicion = 
+	let sprite = Tex textureBulletSize textureBulletIndex
+	in object "bullet" sprite False startPosition (enemyPosicion)
 
 moveBulletDown :: Modifiers -> Position -> SpaceWarAction ()
 moveBulletDown _ _ = do

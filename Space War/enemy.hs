@@ -9,6 +9,7 @@ import Textures
 import Types
 
 
+startPosition = (800, 20)
 
 enemyCreate :: SpaceWarObject
 enemyCreate = 
