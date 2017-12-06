@@ -5,6 +5,8 @@ import Screen
 --import Spacewar
 import Textures
 import Types
+import Enemy
+import Bullet
 
 gameCycle :: SpaceWarAction ()
 gameCycle = do
@@ -17,3 +19,4 @@ main = do
         input = []
         --gameCycle = (0 0 True) () (GameOver) ()
     funInit winConfig background [] () () input gameCycle (Timer 40) bmpList
+
