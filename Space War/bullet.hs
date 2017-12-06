@@ -10,9 +10,9 @@ height = 640
 startPosition = (800, 20)
 
 --creatBullet :: Position -> SpaceWarObject
-creatBullet enemyPosicion = 
+creatBullet x y = 
 	let sprite = Tex textureBulletSize textureBulletIndex
-	in object "bullet" sprite False startPosition (enemyPosicion)
+	in object "bullet" sprite False startPosition x y ()
 
 moveBulletDown :: Modifiers -> Position -> SpaceWarAction ()
 moveBulletDown _ _ = do
