@@ -8,7 +8,8 @@ import Screen
 import Textures
 import Types
 
-
+width = 480
+height = 640
 startPosition = (800, 20)
 
 enemyCreate :: SpaceWarObject
@@ -22,9 +23,9 @@ moveEnemyRight _ _  = do
 	(px, py) <- getObjectPosition obj
 	(sx,sy) <- getObjectSize obj
 --MUDAR O 10 PARA WIDTH
-	if(px + (sx/2) + 5 < 10)
+	if(px + (sx/2) + 5 < width)
 		then (setObjectPosition ((px+5), py) obj)
-		else (setObjectPosition((10-(sx/2)),py) obj) 
+		else (setObjectPosition((width-(sx/2)),py) obj) 
 
 moveEnemyLeft :: Modifiers -> Position -> SpaceWarAction ()
 moveEnemyLeft _ _ = do
@@ -34,7 +35,7 @@ moveEnemyLeft _ _ = do
 	if(px + (sx/2) - 5 > 0)
 		then (setObjectPosition ((px-5), py) obj)
 		--MUDAR O 10 PARA WIDTH
-		else (setObjectPosition((10 + (sx/2)),py) obj) 	
+		else (setObjectPosition((width + (sx/2)),py) obj) 	
 
 moveEnemyDown :: Modifiers -> Position -> SpaceWarAction ()
 moveEnemyDown _ _ = do
