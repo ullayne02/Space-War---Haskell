@@ -15,19 +15,19 @@ startPosition = (800, 20)
 
 enemyCreate :: [SpaceWarObject]
 enemyCreate = 
-	let sprite = Tex textureObstacleSize textureObstacleIndex
-	in [(object "enemy1" sprite False startPosition (10, 1000) ()), 
-	(object "enemy2" sprite False startPosition (10, 1000) ()), 
-	(object "enemy3" sprite False startPosition (10, 1000) ())]
+    let sprite = Tex textureObstacleSize textureObstacleIndex
+    in [(object "enemy1" sprite False startPosition (10, 1000) ()), 
+    (object "enemy2" sprite False startPosition (10, 1000) ()), 
+    (object "enemy3" sprite False startPosition (10, 1000) ())]
 
 moveEnemyRight :: Modifiers -> Position -> SpaceWarAction ()
 moveEnemyRight _ _  = do
-	obj <- findObject "enemy" "enemyGroup"
-	(px, py) <- getObjectPosition obj
-	(sx,sy) <- getObjectSize obj
-	if(px + (sx/2) + 5 < width)
-		then (setObjectPosition ((px+5), py) obj)
-		else (setObjectPosition((width-(sx/2)),py) obj) 
+    obj <- findObject "enemy" "enemyGroup"
+    (px, py) <- getObjectPosition obj
+    (sx,sy) <- getObjectSize obj
+    if(px + (sx/2) + 5 < width)
+        then (setObjectPosition ((px+5), py) obj)
+        else (setObjectPosition((width-(sx/2)),py) obj) 
 
 moveEnemyLeft :: Modifiers -> Position -> SpaceWarAction ()
 moveEnemyLeft _ _ = do
