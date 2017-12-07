@@ -72,7 +72,7 @@ moveEnemyDown _ _ = do
 creatBullet :: GLdouble -> GLdouble -> SpaceWarObject
 creatBullet x y = 
 	let sprite = Tex textureBulletSize textureBulletIndex
-	in object "bullet" sprite True startPosition x y ()
+	in object "bullet" sprite True (x,y) (10, 1000) ()
 
 moveBulletDown :: Modifiers -> Position -> SpaceWarAction ()
 moveBulletDown _ _ = do
