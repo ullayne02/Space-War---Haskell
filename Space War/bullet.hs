@@ -12,11 +12,7 @@ startPosition = (800, 20)
 creatBullet ::  (GLdouble, GLdouble) -> GameObject GLdouble 
 creatBullet (x, y) = 
 	let sprite = Tex textureBulletSize textureBulletIndex
-	in object "bullet" sprite False startPosition (x, y) ()
-
-		--(x, y) = getObjectPosition obj 
-	--	sprite = Tex textureBulletSize textureBulletIndex
-	--	in object "bullet" sprite False startPosition x y ()
+	in object "bullet" sprite False (fst (x,y)) (snd (x,y)) ()
 
 moveBulletDown :: Modifiers -> Position -> SpaceWarAction ()
 moveBulletDown _ _ = do

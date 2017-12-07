@@ -7,43 +7,35 @@ import Graphics.Rendering.OpenGL (GLdouble)
 import Screen
 import Textures
 import Types
-import Bullet
-width  = 600
-height = 1000
+
 
 enemySpeed = -1
 
-createEnemys :: SpaceWarObject 
-createEnemys = 
-	enemys <- getObjectsFromGroup "enemyGroup"
-	forM_ enemys $ \enemy -> do 
-		sleeping <- getObjectAsleep (enemy)
-		when (not sleeping) $ do
-			(Score n) <- getGameAttribute
-			let aux = ((fromIntegral n :: Double)/100.0)
-			shoot <- randomDouble (0.0, 100.0 + (aux)) 
-			if (shoot < 25)
-				then 
-
-			(px, py) <- getObjectPosition enemy
-			let obj = (createBullet px py)
-			addObjectsToGroup [obj] "bulletGroups"
+--createEnemys :: SpaceWarObject 
+--createEnemys = 
+--	enemys <- getObjectsFromGroup "enemyGroup"
+--	forM_ enemys $ \enemy -> do 
+--		sleeping <- getObjectAsleep (enemy)
+--		when (not sleeping) $ do
+--			(Score n) <- getGameAttribute
+--			let aux = ((fromIntegral n :: Double)/100.0)
+--			shoot <- randomDouble (0.0, 100.0 + (aux)) 
+--			if (shoot < 25)
+--				then 
+--
+--			(px, py) <- getObjectPosition enemy
+--			let obj = (createBullet px py)
+--			addObjectsToGroup [obj] "bulletGroups"
 
 --toda vez que criar um inimigo, a cada tempo colocar cada um para atirar
 --para fazer isso, criar uma bala a cada segundo de tempo 
-setObjectsAsleep :: [SpaceWarObject] -> Bool -> Int -> SpaceWarAction ()
-setObjectsAsleep _ _ 0 = return ()
-setObjectsAsleep [] _ _ = return ()
-setObjectsAsleep (x:xs) k l = do
-	setObjectsAsleep k l
-	setObjectsAsleep xs k (l-1)
 
 
 width = 480
 height = 640
 startPosition = (800, 20)
 
-enemyCreate :: SpaceWarObject
+enemyCreate :: [SpaceWarObject]
 enemyCreate = 
 	let sprite = Tex textureObstacleSize textureObstacleIndex
 	in [(object "enemy1" sprite False startPosition (10, 1000) ()), 
@@ -77,6 +69,7 @@ moveEnemyDown _ _ = do
 		then (setObjectPosition (px, py-5) obj)
 		else (setObjectPosition(px, py) obj) 	
 
+creatBullet :: GLdouble -> GLdouble -> SpaceWarObject
 creatBullet x y = 
 	let sprite = Tex textureBulletSize textureBulletIndex
 	in object "bullet" sprite True startPosition x y ()
@@ -106,22 +99,23 @@ stopEnemy (x:xs) l = do
 	setObjectSpeed(0,0) x
 	stopEnemy xs (l-1)
 
-shot :: [SpaceWarObject] -> Position -> SpaceWarAction ()
-shot _ _ 1000 = return ()
-shot [] _ _ = return ()
-shot (x:xs) = do
+shot :: [SpaceWarObject] -> SpaceWarAction ()
+shot (x:xs) = do 
 	(px, py) <- getObjectPosition x
-	let fire = (creatBullet px py)
+	creatBullet px py
+	fire <- findObject "bullet" "bulletGroup"
 	addObjectsToGroup fire "bulletGroup"
-	drawObject fire
+	drawObject 
 	shooting fire
+	shot xs
 
 shooting :: SpaceWarObject -> SpaceWarAction ()
 shooting obj = do 
 	(px, py) <- getObjectPosition obj 
 	if (py + 5 >= height) 
 		then return ()
-		else
-			setObjectPosition (px, py+5) obj
-			drawObject obj
+		else 
+			do
+				(setObjectPosition (px, py+5) obj)
+				drawObject obj
 
