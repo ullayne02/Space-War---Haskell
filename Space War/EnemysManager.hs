@@ -1,6 +1,4 @@
-module EnemysManager(
-	createEnemys, 
-	enemyCycle, stopEnemy) where
+module EnemysManager where
 import Graphics.UI.Fungen
 import Graphics.Rendering.OpenGL (GLdouble)
 
@@ -10,26 +8,6 @@ import Types
 
 
 enemySpeed = -1
-
---createEnemys :: SpaceWarObject 
---createEnemys = 
---	enemys <- getObjectsFromGroup "enemyGroup"
---	forM_ enemys $ \enemy -> do 
---		sleeping <- getObjectAsleep (enemy)
---		when (not sleeping) $ do
---			(Score n) <- getGameAttribute
---			let aux = ((fromIntegral n :: Double)/100.0)
---			shoot <- randomDouble (0.0, 100.0 + (aux)) 
---			if (shoot < 25)
---				then 
---
---			(px, py) <- getObjectPosition enemy
---			let obj = (createBullet px py)
---			addObjectsToGroup [obj] "bulletGroups"
-
---toda vez que criar um inimigo, a cada tempo colocar cada um para atirar
---para fazer isso, criar uma bala a cada segundo de tempo 
-
 
 width = 480
 height = 640
@@ -69,10 +47,10 @@ moveEnemyDown _ _ = do
 		then (setObjectPosition (px, py-5) obj)
 		else (setObjectPosition(px, py) obj) 	
 
-creatBullet :: GLdouble -> GLdouble -> SpaceWarObject
+creatBullet :: GLdouble -> GLdouble -> GameObject ()
 creatBullet x y = 
 	let sprite = Tex textureBulletSize textureBulletIndex
-	in object "bullet" sprite True (x,y) (10, 1000) ()
+	in object "bullet" sprite False (x,y) (10, 1000) ()
 
 moveBulletDown :: Modifiers -> Position -> SpaceWarAction ()
 moveBulletDown _ _ = do
@@ -102,10 +80,9 @@ stopEnemy (x:xs) l = do
 shot :: [SpaceWarObject] -> SpaceWarAction ()
 shot (x:xs) = do 
 	(px, py) <- getObjectPosition x
-	creatBullet px py
-	fire <- findObject "bullet" "bulletGroup"
-	addObjectsToGroup fire "bulletGroup"
-	drawObject 
+	let fire = (creatBullet px py)
+	addObjectsToGroup [fire] "bulletGroup"
+	drawObject fire
 	shooting fire
 	shot xs
 
