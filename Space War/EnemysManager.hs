@@ -71,10 +71,10 @@ shot (x:xs) = do
 shooting :: SpaceWarObject -> SpaceWarAction ()
 shooting obj = do 
 	(px, py) <- getObjectPosition obj 
-	if (py + 5 >= height) 
+	if (py - 5 >= 0) 
 		then return ()
 		else 
 			do
-				(setObjectPosition (px, py+5) obj)
+				(setObjectPosition (px, py-5) obj)
 				drawObject obj
 
